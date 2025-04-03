@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "build-taxa-lineage"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "vidyasagar0405", email = "vidyasagar0405@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["ete3"]
+
+[project.urls]
+Documentation = "https://github.com/vidyasagar0405/build-taxa-lineage#readme"
+Issues = "https://github.com/vidyasagar0405/build-taxa-lineage/issues"
+Source = "https://github.com/vidyasagar0405/build-taxa-lineage"
+
+[tool.hatch.version]
+path = "src/build_taxa_lineage/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/build_taxa_lineage tests}"
+
+[tool.coverage.run]
+source_pkgs = ["build_taxa_lineage", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/build_taxa_lineage/__about__.py",
+]
+
+[tool.coverage.paths]
+build_taxa_lineage = ["src/build_taxa_lineage", "*/build-taxa-lineage/src/build_taxa_lineage"]
+tests = ["tests", "*/build-taxa-lineage/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
