@@ -1,8 +1,5 @@
 # build_taxa_lineage
 
-[![PyPI - Version](https://img.shields.io/pypi/v/build-taxa-lineage.svg)](https://pypi.org/project/build-taxa-lineage)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/build-taxa-lineage.svg)](https://pypi.org/project/build-taxa-lineage)
-
 -----
 
 ## Table of Contents
@@ -13,7 +10,7 @@
 ## Installation
 
 ```console
-pip install build-taxa-lineage
+pip install git+https://github.com/vidyasagar0405/build_taxa_lineage.git#egg=build_taxa_lineage
 ```
 
 ## License
