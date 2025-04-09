@@ -15,6 +15,7 @@ Example usage:
 """
 
 from ete3 import NCBITaxa
+from functools import lru_cache
 
 # Define a mapping from NCBI ranks to the desired prefix in the output
 rank_prefix = {
@@ -30,6 +31,7 @@ rank_prefix = {
 }
 
 
+@lru_cache(maxsize=None)
 def build_lineage(taxid: int) -> str | None:
     """
     Returns the taxanomic lineage of the given NCBI taxa id
