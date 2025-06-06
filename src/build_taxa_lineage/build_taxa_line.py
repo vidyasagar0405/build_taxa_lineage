@@ -3,7 +3,7 @@
 Taxonomic Lineage Builder for NCBI TaxIDs using ETE4
 
 This module provides functions to build taxonomic lineages for NCBI taxonomic IDs
-using the `ete3.NCBITaxa` interface. It supports both single taxon lookups and
+using the `ete4.NCBITaxa` interface. It supports both single taxon lookups and
 batch lineage mapping with memoization for performance.
 
 ---
@@ -27,7 +27,7 @@ df["lineage"] = df["ncbi_tax_id"].map(lineage_map)
 
 df.to_csv("output.tsv", sep="\t", index=False)
 """
-from ete3 import NCBITaxa
+from ete4 import NCBITaxa
 from functools import lru_cache
 from typing import Optional
 
