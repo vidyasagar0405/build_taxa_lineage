@@ -29,7 +29,7 @@ df["lineage"] = df["ncbi_tax_id"].map(lineage_map)
 df.to_csv("output.tsv", sep="\t", index=False)
 """
 
-from ete3 import NCBITaxa
+from ete4 import NCBITaxa
 from functools import lru_cache
 
 # Define a mapping from NCBI ranks to the desired prefix in the output
