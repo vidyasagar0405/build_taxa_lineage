@@ -7,7 +7,7 @@ __author__ = "Vidyasagar"
 __copyright__ = "Copyright 2025, Vidyasagar"
 __credits__ = ["Vidyasagar"]
 __maintainer__ = "Vidyasagar"
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __licence__ = "MIT"
 
 ##############################################################################
