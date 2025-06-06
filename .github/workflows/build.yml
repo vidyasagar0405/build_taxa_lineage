@@ -1,0 +1,24 @@
+name: Build with Hatch
+
+on:
+  push:
+    branches:
+      - main  # or whatever branch(es) you want
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"  # or match your project's version
+
+      - name: Install Hatch
+        run: pip install hatch
+
+      - name: Run hatch build
+        run: hatch build
