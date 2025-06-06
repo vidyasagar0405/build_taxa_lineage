@@ -46,14 +46,14 @@ rank_prefix = {
 
 
 @lru_cache(maxsize=None)
-def build_lineage(taxid: int) -> str | None:
+def build_lineage(taxid: int, dbfile=None) -> str | None:
     """
     Returns the taxanomic lineage of the given NCBI taxa id
     """
 
     try:
         # Initialize the NCBI taxonomy database
-        ncbi = NCBITaxa()
+        ncbi = NCBITaxa(dbfile)
 
         # Get the full lineage list (a list of taxid integers)
         lineage = ncbi.get_lineage(taxid)
@@ -84,12 +84,12 @@ def build_lineage(taxid: int) -> str | None:
         return None
 
 
-def build_lineage_map(taxids: list[int]) -> dict[int, str]:
+def build_lineage_map(taxids: list[int], dbfile=None) -> dict[int, str]:
     """
     Build a lineage map for a list of taxids using ETE3 in batch.
     Returns a dictionary: taxid -> lineage string
     """
-    ncbi = NCBITaxa()
+    ncbi = NCBITaxa(dbfile)
     lineage_map = {}
 
     for taxid in taxids:
