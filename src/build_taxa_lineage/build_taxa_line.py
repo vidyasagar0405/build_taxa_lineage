@@ -87,6 +87,9 @@ def build_lineage_map(taxids: list[int], dbfile: Optional[str] = None) -> dict[i
 
     return lineage_map
 
+def make_db_at(store_db):
+    ncbi = NCBITaxa()
+    ncbi.update_taxonomy_database(taxdump_file=store_db)
 
 if __name__ == "__main__":
     pass  # Or test/debug code here
