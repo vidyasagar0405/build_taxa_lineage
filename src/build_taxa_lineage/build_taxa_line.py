@@ -27,6 +27,7 @@ df["lineage"] = df["ncbi_tax_id"].map(lineage_map)
 
 df.to_csv("output.tsv", sep="\t", index=False)
 """
+
 from ete4 import NCBITaxa
 from functools import lru_cache
 from typing import Optional
@@ -44,17 +45,20 @@ rank_prefix = {
 
 
 @lru_cache(maxsize=None)
-def build_lineage(taxid: int, dbfile: Optional[str] = None) -> Optional[str]:
+def build_lineage(
+    taxid: int, dbfile: Optional[str] = None, taxdump_file: Optional[str] = None
+) -> Optional[str]:
     """Return formatted taxonomic lineage for a single taxid."""
     try:
-        ncbi = NCBITaxa(dbfile=dbfile)
+        ncbi = NCBITaxa(dbfile=dbfile, taxdump_file=taxdump_file)
         lineage = ncbi.get_lineage(taxid)
         names = ncbi.get_taxid_translator(lineage)
         ranks = ncbi.get_rank(lineage)
 
         lineage_parts = [
             f"{rank_prefix[ranks[tid]]}__{names[tid].replace(' ', '_')}"
-            for tid in lineage if ranks.get(tid) in rank_prefix
+            for tid in lineage
+            if ranks.get(tid) in rank_prefix
         ]
 
         return "|".join(lineage_parts)
@@ -64,9 +68,12 @@ def build_lineage(taxid: int, dbfile: Optional[str] = None) -> Optional[str]:
         return None
 
 
-def build_lineage_map(taxids: list[int], dbfile: Optional[str] = None) -> dict[int, Optional[str]]:
+def build_lineage_map(
+    taxids: list[int], dbfile: Optional[str] = None, taxdump_file: Optional[str] = None
+) -> dict[int, Optional[str]]:
     """Build a lineage dictionary for a list of taxids."""
     ncbi = NCBITaxa(dbfile=dbfile)
+    ncbi = NCBITaxa(dbfile=dbfile, taxdump_file=taxdump_file)
     lineage_map = {}
 
     for taxid in taxids:
@@ -77,7 +84,8 @@ def build_lineage_map(taxids: list[int], dbfile: Optional[str] = None) -> dict[i
 
             lineage_parts = [
                 f"{rank_prefix[ranks[tid]]}__{names[tid].replace(' ', '_')}"
-                for tid in lineage if ranks.get(tid) in rank_prefix
+                for tid in lineage
+                if ranks.get(tid) in rank_prefix
             ]
 
             lineage_map[taxid] = "|".join(lineage_parts)
@@ -87,9 +95,6 @@ def build_lineage_map(taxids: list[int], dbfile: Optional[str] = None) -> dict[i
 
     return lineage_map
 
-def make_db_at(store_db):
-    ncbi = NCBITaxa()
-    ncbi.update_taxonomy_database(taxdump_file=store_db)
 
 if __name__ == "__main__":
     pass  # Or test/debug code here
