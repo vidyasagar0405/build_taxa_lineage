@@ -72,7 +72,6 @@ def build_lineage_map(
     taxids: list[int], dbfile: Optional[str] = None, taxdump_file: Optional[str] = None
 ) -> dict[int, Optional[str]]:
     """Build a lineage dictionary for a list of taxids."""
-    ncbi = NCBITaxa(dbfile=dbfile)
     ncbi = NCBITaxa(dbfile=dbfile, taxdump_file=taxdump_file)
     lineage_map = {}
 
